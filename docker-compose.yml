@@ -1,0 +1,12 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000" # Bên trái là port máy thật, bên phải là port trong Dockerfile (EXPOSE 5000)
+    env_file:
+      - ./backend/.env
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80" # Nếu bạn dùng Nginx trong Dockerfile frontend, nó chạy port 80 mặc định

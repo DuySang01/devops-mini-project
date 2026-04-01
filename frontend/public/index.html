@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8"> <!-- Sửa lỗi font chữ Tiếng Việt -->
+    <title>DevOps Project</title>
+</head>
+<body>
+    <h1>Thông tin sinh viên</h1>
+    <div id="student-info">Đang tải dữ liệu...</div>
+
+    <script>
+        // Phải gọi đến đúng port mà bạn map ở docker-compose (thường là 5000)
+        fetch('http://localhost:5000/about') 
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('student-info').innerHTML = 
+                    `<p>Họ tên: ${data.ho_ten}</p>
+                     <p>MSSV: ${data.mssv}</p>
+                     <p>Lớp: ${data.lop}</p>`;
+            })
+            .catch(err => {
+                document.getElementById('student-info').innerHTML = "Lỗi kết nối Backend!";
+                console.error(err);
+            });
+    </script>
+</body>
+</html>
