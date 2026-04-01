@@ -1,3 +1,4 @@
+// Backend server for DevOps project
 const express = require('express');
 const cors = require('cors'); // QUAN TRỌNG: Phải có cái này để Frontend gọi được API
 const dotenv = require('dotenv');
