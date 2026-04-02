@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 
 function App() {
-  const [info, setInfo] = useState({});
+  const [student, setStudent] = useState(null);
 
   useEffect(() => {
-    // Gọi API từ backend (sẽ dùng docker-compose nên để localhost:5000 khi test máy)
-    axios.get('http://localhost:5000/info')
-      .then(res => setInfo(res.data))
-      .catch(err => console.log(err));
+    // Gọi API từ Backend (đảm bảo port 5000 đúng với backend của bạn)
+    fetch('http://localhost:5000/about')
+      .then(response => response.json())
+      .then(data => setStudent(data))
+      .catch(err => console.error("Lỗi gọi API:", err));
   }, []);
+
+  if (!student) return <div>Đang tải thông tin...</div>;
 
   return (
     <div style={{ padding: '20px' }}>
-      <h1>Trang thông tin cá nhân</h1>
-      <p>Họ tên: {info.hoTen}</p>
-      <p>MSSV: {info.mssv}</p>
-      <p>Lớp: {info.lop}</p>
+      <h1>Thông tin sinh viên</h1>
+      <p><strong>Họ tên:</strong> {student.ho_ten}</p>
+      <p><strong>MSSV:</strong> {student.mssv}</p>
+      <p><strong>Lớp:</strong> {student.lop}</p>
     </div>
   );
 }
+
 export default App;

@@ -1,27 +1,24 @@
-// Backend server for DevOps project
 const express = require('express');
-const cors = require('cors'); // QUAN TRỌNG: Phải có cái này để Frontend gọi được API
-const dotenv = require('dotenv');
-
-dotenv.config(); 
+const cors = require('cors');
 const app = express();
+const PORT = process.env.PORT || 5000;
 
-app.use(cors()); // Cho phép Frontend truy cập
+app.use(cors());
 app.use(express.json());
 
-// API thông tin sinh viên (Yêu cầu 3.1)
+// API thông tin sinh viên (Đây là nơi bạn đổi thông tin)
 app.get('/about', (req, res) => {
-    res.json({
-        ho_ten: "Văn Quý Duy Sang", 
-        mssv: "2251220230",
-        lop: "22CT5"
-    });
+  res.json({
+    ho_ten: "Lê Đình Nguyên", // Đổi tên bạn ở đây
+    mssv: "2251220246",      // Đổi MSSV ở đây
+    lop: "22CT5"              // Đổi lớp ở đây
+  });
 });
 
-// API Health Check (Yêu cầu 3.2)
 app.get('/health', (req, res) => {
-    res.status(200).json({ "status": "ok" });
+  res.json({ status: "ok" });
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server chạy ở port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Backend running on port ${PORT}`);
+});
